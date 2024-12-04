@@ -4,6 +4,8 @@ use regex::{Match, Regex};
 
 mod input;
 
+const REGEX: &str = r"mul\((?<num01>[0-9]+),(?<num02>[0-9]+)\)";
+
 pub fn run() {
     println!("--- Day 03 ---");
 
@@ -14,7 +16,7 @@ pub fn run() {
 }
 
 fn solution_part_one() {
-    let regex = Regex::new(r"mul\((?<num01>[0-9]+),(?<num02>[0-9]+)\)").unwrap();
+    let regex = Regex::new(REGEX).unwrap();
     let res: i32 = regex.find_iter(INPUT).map(|m| calculate(&m, &regex)).sum();
 
     println!("Pt1 - Multiplication result: {res}");
@@ -23,7 +25,7 @@ fn solution_part_one() {
 fn solution_part_two() {
     // Replacing `don't` with `never` prevents issues when splitting with `do`.
     let input = INPUT.replace("don't", "never");
-    let regex = Regex::new(r"mul\((?<num01>[0-9]+),(?<num02>[0-9]+)\)").unwrap();
+    let regex = Regex::new(REGEX).unwrap();
 
     let split = split_inclusive_rhs(&input, "never")
         .iter()
